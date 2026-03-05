@@ -56,7 +56,7 @@ bash scripts/setup_github.sh
 
 `docs/` 配下のテンプレートをプロジェクトに合わせて編集する：
 
-```
+```text
 docs/
 ├── plan.md           # ロードマップ、Next タスク、Backlog
 ├── requirements.md   # 要件定義・受入条件
@@ -75,9 +75,23 @@ docs/
 # 「計画に沿い作業を実施」と指示すると、plan.md の Next タスクを自動的に分解・実行する
 ```
 
+### 6. MiraStudy Web を起動（初期実装）
+
+```bash
+cd web
+npm install
+npm run dev
+```
+
+実装済み範囲（v1.1 初期）:
+
+- プロファイル選択画面（政宗 / 文菜 / 保護者）
+- 生年月日からの年齢・学年自動判定（4/2〜翌4/1 同学年）
+- 生徒/保護者ホームの初期画面
+
 ## ディレクトリ構成
 
-```
+```text
 .
 ├── project-config.yml              # プロジェクト設定（ブートストラップ用）
 │
@@ -139,7 +153,7 @@ docs/
 
 ## エージェント構成
 
-```
+```text
 ユーザー
   │
   ▼

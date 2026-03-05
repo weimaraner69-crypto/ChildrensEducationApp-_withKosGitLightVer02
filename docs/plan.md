@@ -47,7 +47,7 @@
 
 ### N-008 Firestore SDK アダプタ実装（実接続 PoC） ✅
 
-- Issue: TBD
+- Issue: #2
 - 完了日: 2026-03-05
 - 完了: `retryHelper.js`（指数バックオフ付き `withRetry`）を新設
 - 完了: `createFirestoreSdkGateway` に retry ラッパーを統合（`retryOptions` で設定可能）
@@ -145,7 +145,7 @@
 | N-005 保護者ダッシュボード基盤の実装 | TBD | D | feature |
 | N-006 Firestore 連携スタブの実装 | TBD | D | feature |
 | N-007 Firestore 実接続準備（SDK 境界設計） | TBD | D | feature |
-| N-008 Firestore SDK アダプタ実装（実接続 PoC） | TBD | D | feature |
+| N-008 Firestore SDK アダプタ実装（実接続 PoC） | #2 | D | feature |
 | N-009 Firebase SDK 実接続統合（main.jsx + 環境設定） | TBD | D | feature |
 
 GitHub Project: <!-- URL を記載 -->

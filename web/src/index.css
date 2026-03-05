@@ -1,0 +1,66 @@
+@import "tailwindcss";
+
+:root {
+    --bg-1: #fff7ed;
+    --bg-2: #eef2ff;
+    --bg-3: #ffe4e6;
+    --line: rgba(79, 70, 229, 0.14);
+    --ink-strong: #312e81;
+    --ink-base: #3f3f46;
+    --card: rgba(255, 255, 255, 0.78);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: "Hiragino Maru Gothic ProN", "Yu Gothic", "Meiryo", sans-serif;
+    color: var(--ink-base);
+    background:
+        radial-gradient(circle at 15% 20%, var(--bg-2), transparent 38%),
+        radial-gradient(circle at 90% 10%, var(--bg-3), transparent 34%),
+        linear-gradient(140deg, var(--bg-1), #fffbeb 45%, #fdf2f8 100%);
+}
+
+#root {
+    min-height: 100vh;
+}
+
+.grain-overlay {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background-image: linear-gradient(transparent 96%, var(--line) 96%);
+    background-size: 100% 22px;
+    opacity: 0.26;
+}
+
+.title-font {
+    font-family: "Avenir Next", "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif;
+    color: var(--ink-strong);
+}
+
+.panel {
+    background: var(--card);
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(255, 255, 255, 0.75);
+}
+
+.card-appear {
+    animation: cardIn 0.5s ease-out both;
+}
+
+@keyframes cardIn {
+    from {
+        transform: translateY(8px) scale(0.98);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+}

@@ -23,6 +23,7 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 SCAN_DIRS = [
     REPO_ROOT / "src",
     REPO_ROOT / "tests",
+    REPO_ROOT / "web",
     REPO_ROOT / "scripts",
     REPO_ROOT / ".github",
     REPO_ROOT / "configs",
@@ -33,7 +34,9 @@ SCAN_DIRS = [
 SCAN_EXTENSIONS = {
     ".py",
     ".ts",
+    ".tsx",
     ".js",
+    ".jsx",
     ".go",
     ".rs",
     ".toml",
@@ -50,6 +53,7 @@ SKIP_DIR_NAMES = {
     "__pycache__",
     ".git",
     "node_modules",
+    "dist",
     ".mypy_cache",
     ".ruff_cache",
     "target",
@@ -91,6 +95,7 @@ URL_PATTERN = r"https?://[^\s\"')\]>]+"
 # URL ホワイトリスト（マッチしたら許可）
 URL_ALLOWLIST_PATTERNS: list[str] = [
     r"example\.com",
+    r"www\.mext\.go\.jp",
     r"github\.com",
     r"pypi\.org",
     r"npmjs\.com",
@@ -154,13 +159,13 @@ def is_url_allowlisted(line: str) -> bool:
 
 def is_code_file(path: Path) -> bool:
     """コード系ファイルか判定する（コメント行の判定に使用）。"""
-    return path.suffix.lower() in {".py", ".ts", ".js", ".go", ".rs"}
+    return path.suffix.lower() in {".py", ".ts", ".tsx", ".js", ".jsx", ".go", ".rs"}
 
 
 def is_comment_line(line: str, suffix: str) -> bool:
     """コメント行か判定する。"""
     stripped = line.lstrip()
-    return suffix in {".py", ".ts", ".js", ".go", ".rs"} and (
+    return suffix in {".py", ".ts", ".tsx", ".js", ".jsx", ".go", ".rs"} and (
         stripped.startswith("#") or stripped.startswith("//")
     )
 

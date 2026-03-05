@@ -109,6 +109,51 @@ Copilot エージェントの場合は `get_errors` ツール（filePaths 省略
 
 iPhone / iPad からの開発作業については [docs/mobile-workflow.md](mobile-workflow.md) を参照する。
 
+## Firestore SDK アダプタの切替手順
+
+フロントエンドは `VITE_FIRESTORE_MODE` 環境変数で接続モードを切り替える。
+
+### スタブモード（デフォルト）
+
+環境変数を設定しないか `stub` を指定すると、インメモリスタブが使われる。Firebase への実接続は発生しない。
+
+```bash
+# .env.local（または省略）
+# VITE_FIRESTORE_MODE=stub  ← 省略可
+cd web && npm run dev
+```
+
+### realtime モード（Firebase SDK 実接続）
+
+`realtime` を指定すると、`createMiraRepositoryFromEnv` の呼び出し元が `sdkFunctions` として Firebase SDK 関数群を注入することで実接続する。
+
+```bash
+# .env.local
+VITE_FIRESTORE_MODE=realtime
+VITE_FIREBASE_PROJECT_ID=<your-project>
+VITE_FIREBASE_API_KEY=<your-api-key>
+# ⚠️ .env.local は絶対にコミットしない（P-002）
+cd web && npm run dev
+```
+
+`App.jsx` は `createMiraRepositoryFromEnv()` を呼ぶだけでよく、モード判定は factory 内で完結する。
+実際の Firebase SDK 注入コードは別途 `main.jsx` またはフィーチャーブランチで追加する（N-009 以降）。
+
+### リトライ設定の変更
+
+`createFirestoreSdkGateway` の `retryOptions` で上書き可能。
+
+| パラメータ | デフォルト | 説明 |
+| --- | --- | --- |
+| `maxRetries` | 3 | 最大再試行回数（初回を除く） |
+| `baseDelayMs` | 300 | 初回再試行の待機時間（ms） |
+| `maxDelayMs` | 5000 | 待機時間の上限（ms） |
+
+```js
+// 例: テスト・デバッグ時にリトライを無効化する
+createMiraRepositoryFromEnv({ retryOptions: { maxRetries: 0 } });
+```
+
 ## ロールバック手順
 
 ### フィーチャーブランチの巻き戻し
